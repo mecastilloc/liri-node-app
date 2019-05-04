@@ -1,2 +1,22 @@
 # liri-node-app
 LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
+
+
+#Commits
+
+Commit 1:
+Initial Commit
+
+Commit 2:
+File Structure created
+.gitignore file created
+
+Commit 3:
+pakage.json file initialized
+
+
+Commmit 4:
+node packages installation
+
+
+
