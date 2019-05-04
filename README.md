@@ -18,5 +18,8 @@ pakage.json file initialized
 Commmit 4:
 node packages installation
 
+Commit 5:
+install node inquirer packege for the user to select the action to perform
+
 
 
