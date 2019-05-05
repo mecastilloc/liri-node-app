@@ -21,5 +21,7 @@ node packages installation
 Commit 5:
 install node inquirer packege for the user to select the action to perform
 
+Commit 6: 
+program logic added, inquirer promp for user selection. Switch case for the different functions. Bands in town for searching next concenrts for an artist provided
 
 

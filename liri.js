@@ -87,6 +87,40 @@ function concerts() {
 
 
 
+function omdb() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "input wich Movie data do you want to retrieve",
+                name: "search"
+            },
+        ])
+        .then(function (inquirerStr) {
+            search = inquirerStr.search.toUpperCase();
+            console.log("Searching data for the movie " + search);
+            axios.get("http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey=" + omdbKey)
+                .then(function (res) {
+                    // console.log("http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey="+omdbKey)
+                    //console.log(JSON.stringify(response, null, 2));
+                    //console.log(res);
+                    console.log("\nThe data for " + search + " movie is:");
+                    console.log("==========================================");
+                    console.log("Title: " + res.data.Title);
+                    console.log("Year Out: " + res.data.Year);
+                    console.log("IMDB Rating: " + res.data.imdbRating);
+                    console.log("Rotten Tomatoes Rating: " + res.data.Ratings[1].value);
+                    console.log("Contry Movie produced: " + res.data.Country);
+                    console.log("Movie Language: " + res.data.Languaje);
+                    console.log("Movie Plot: " + res.data.Plot);
+                    console.log("Actors:" + res.data.Actors);
+                    console.log("==========================================\n");
+
+                });
+        });
+}
+
+
 // function titleCase(str) {
 //     str = str.toLowerCase().split(' ');
 //     for (var i = 0; i < str.length; i++) {
