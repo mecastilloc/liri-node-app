@@ -7,6 +7,7 @@ var omdbKey = process.env.OMDB_KEY;
 var moment = require("moment");
 var inquirer = require("inquirer");
 var axios = require("axios");
+var fs = require("fs");
 var actionToDo = "";
 var search = "";
 
@@ -41,12 +42,12 @@ inquirer
                 break;
 
             case "do-what-it-says":
-                console.log("random");
+                randomFn();
                 break;
 
-            default:
-                console.log("Unrecognized command");
-                break;
+            // default:
+            //     console.log("Unrecognized command");
+            //     break;
         }
 
 
@@ -70,22 +71,26 @@ function concerts() {
             console.log("Searching the next  4 events for " + search);
             axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=" + bandsKey)
                 .then(function (res) {
+                    var logStream = fs.createWriteStream('log.txt', {'flags': 'a'});
                     //console.log("https://rest.bandsintown.com/artists/" + search + "/events?app_id="+ bandsKey)
                     //console.log(JSON.stringify(response, null, 2));
                     //console.log(response);
                     console.log("\nThe Next 4 " + search + " concert data is:");
+                    fs.appendFileSync("log.txt", "\n"+moment().format("YYYY-MM-DD")+ " " + moment().format("HH:mm:ss")+"\r" + search + " Events\r")
                     for (var i = 0; i < 4; i++) {
                         console.log("==========================================");
+                        fs.appendFileSync("log.txt", "\r==========================================\r")
                         console.log("Venue Name: " + res.data[i].venue.name);
+                        fs.appendFileSync("log.txt","\rVenue Name: " + res.data[i].venue.name);
                         console.log("Venue Loctation: " + res.data[i].venue.city + ", " + res.data[i].venue.country);
+                        fs.appendFileSync("log.txt","\rVenue Loctation: " + res.data[i].venue.city + ", " + res.data[i].venue.country);
                         console.log("Date of the event: " + moment(res.data[i].datetime).format("MM/DD/YYYY"));
-                        console.log("==========================================\n");
-                    }
+                        fs.appendFileSync("log.txt","\rDate of the event: " + moment(res.data[i].datetime).format("MM/DD/YYYY"));
+                        }
                 });
         });
+
 }
-
-
 
 
 
@@ -101,37 +106,37 @@ function spotifyThis() {
             },
         ])
         .then(function (inquirerStr) {
-if(!inquirerStr.search){
-    search="The Sign"
-}
-else{
-    search = inquirerStr.search.toUpperCase();
-}
-            
+            if (!inquirerStr.search) {
+                search = "The Sign"
+            }
+            else {
+                search = inquirerStr.search.toUpperCase();
+            }
+
             console.log("Searching data for the song " + search);
             spotify
                 .search({ type: 'track', query: search, limit: 15 })
                 .then(function (res) {
                     console.log("\nThe data for " + search + " song is:");
-for (var i=0; i < res.tracks.items.length; i++){
-                    var items = res.tracks.items[i]
-                   // console.log(JSON.stringify(res, null, 2));
-                   // console.log(res.tracks.items[0]);
-                //    console.log(res.tracks.items.length);
-                   console.log("==========================================");
-                    console.log("Artist: " +  items.artists[0].name);
-                    console.log("Song name: " + items.name);
-                    console.log("Spotify Link: "+ items.external_urls.spotify);
-                    if(!items.preview_url){
-                        console.log("Preview: Not Available");
+                    for (var i = 0; i < res.tracks.items.length; i++) {
+                        var items = res.tracks.items[i]
+                        // console.log(JSON.stringify(res, null, 2));
+                        // console.log(res.tracks.items[0]);
+                        //    console.log(res.tracks.items.length);
+                        console.log("==========================================");
+                        console.log("Artist: " + items.artists[0].name);
+                        console.log("Song name: " + items.name);
+                        console.log("Spotify Link: " + items.external_urls.spotify);
+                        if (!items.preview_url) {
+                            console.log("Preview: Not Available");
                         }
-                        else{
-                            console.log("Preview: "+ items.preview_url);
+                        else {
+                            console.log("Preview: " + items.preview_url);
                         }
-                    console.log("Album:" + items.album.name);
-                    console.log("Track Number:" + items.track_number);
-                    console.log("==========================================\n");
-}
+                        console.log("Album:" + items.album.name);
+                        console.log("Track Number:" + items.track_number);
+                        console.log("==========================================\n");
+                    }
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -155,14 +160,14 @@ function omdb() {
         ])
         .then(function (inquirerStr) {
             console.log("search" + inquirerStr.search)
-            if(!inquirerStr.search){
-                search="Mr Nobody";
+            if (!inquirerStr.search) {
+                search = "Mr Nobody";
                 console.log(search)
             }
-            else{
+            else {
                 search = inquirerStr.search.toUpperCase();
             }
-           
+
             console.log("Searching data for the movie " + search);
             axios.get("http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey=" + omdbKey)
                 .then(function (res) {
