@@ -121,6 +121,54 @@ function omdb() {
 }
 
 
+
+function spotifyThis() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "input wich Song data do you want to retrieve",
+                name: "search"
+            },
+        ])
+        .then(function (inquirerStr) {
+            search = inquirerStr.search.toUpperCase();
+            console.log("Searching data for the song " + search);
+            spotify
+                .search({ type: 'track', query: search, limit: 15 })
+                .then(function (res) {
+                    console.log("\nThe data for " + search + " song is:");
+for (var i=0; i < res.tracks.items.length; i++){
+                    var items = res.tracks.items[i]
+                   // console.log(JSON.stringify(res, null, 2));
+                   // console.log(res.tracks.items[0]);
+                //    console.log(res.tracks.items.length);
+                   console.log("==========================================");
+                    console.log("Artist: " +  items.artists[0].name);
+                    console.log("Song name: " + items.name);
+                    console.log("Spotify Link: "+ items.external_urls.spotify);
+                    if(!items.preview_url){
+                        console.log("Preview: Not Available");
+                        }
+                        else{
+                            console.log("Preview: "+ items.preview_url);
+                        }
+                    console.log("Album:" + items.album.name);
+                    console.log("Track Number:" + items.track_number);
+                    console.log("==========================================\n");
+}
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+            // console.log("http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey="+omdbKey)
+            //console.log(JSON.stringify(response, null, 2));
+            //console.log(res);
+
+        });
+}
+
+
 // function titleCase(str) {
 //     str = str.toLowerCase().split(' ');
 //     for (var i = 0; i < str.length; i++) {
