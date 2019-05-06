@@ -36,4 +36,5 @@ Default string searches for spotify anf OMDB added in case user do not input som
 Commit 10:
 Default case discarded not in use due to inquirer selection. Writing to a log file first test, working on concerts. Find no error code when no data to retrive in Concert-this function.
 
-
+Commit 11:
+wirtting to a log file completed for every function available now. fixed error in concert-this, now logs there is no data instead node.js error. Same no data function added to ovie-this feature.
