@@ -62,7 +62,7 @@ function concerts() {
         .prompt([
             {
                 type: "input",
-                message: "input wich Band/Artist do you want to search",
+                message: "input wich Band/Artist do you want to search for concerts",
                 name: "search"
             },
         ])
@@ -77,8 +77,8 @@ function concerts() {
 
                     if (res.data == "") {
                         fs.appendFileSync("log.txt", "\r==========================================");
-                        console.log("\nNo events' data for " + search + " Available. Check another artist");
-                        fs.appendFileSync("log.txt", "\rNo events' data for " + search + " Available");
+                        console.log("\nNo events data found for " + search + " Available. Check another artist");
+                        fs.appendFileSync("log.txt", "\rNo events data found for " + search + " Available");
                         fs.appendFileSync("log.txt", "\r==========================================");
                     }
                     else {
@@ -96,8 +96,22 @@ function concerts() {
                         console.log("==========================================");
                         fs.appendFileSync("log.txt", "\r==========================================")
                     }
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                      console.log(error.response.data);
+                      console.log(error.response.status);
+                      console.log(error.response.headers);
+                    } else if (error.request) {
+                      console.log(error.request);
+                    } else {
+                      console.log("Error", error.message);
+                      console.log("There is no more data to display, try another search or check your spelling");
+                       }
+                    console.log(error.config);
                 });
         });
+       
 }
 
 
@@ -153,8 +167,18 @@ function spotifyThis() {
                     console.log("==========================================");
                     fs.appendFileSync("log.txt", "\r==========================================");
                 })
-                .catch(function (err) {
-                    console.log(err);
+                .catch(function(error) {
+                    if (error.response) {
+                      console.log(error.response.data);
+                      console.log(error.response.status);
+                      console.log(error.response.headers);
+                    } else if (error.request) {
+                      console.log(error.request);
+                    } else {
+                      console.log("Error", error.message);
+                      console.log("There is no more data to display, try another search or check your spelling");
+                      }
+                    console.log(error.config);
                 });
             // console.log("http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey="+omdbKey)
             //console.log(JSON.stringify(response, null, 2));
@@ -199,35 +223,73 @@ function omdb() {
 
                         console.log("\nThe data for the movie " + search + " is:");
                         console.log("==========================================");
-                        fs.appendFileSync("log.txt","\r==========================================");
+                        fs.appendFileSync("log.txt", "\r==========================================");
                         console.log("Title: " + res.data.Title);
                         fs.appendFileSync("log.txt", "\rTitle: " + res.data.Title);
                         console.log("Year Out: " + res.data.Year);
-                        fs.appendFileSync("log.txt","\rYear Out: " + res.data.Year);
+                        fs.appendFileSync("log.txt", "\rYear Out: " + res.data.Year);
                         console.log("IMDB Rating: " + res.data.imdbRating);
-                        fs.appendFileSync("log.txt","\rIMDB Rating: " + res.data.imdbRating);
+                        fs.appendFileSync("log.txt", "\rIMDB Rating: " + res.data.imdbRating);
                         console.log("Rotten Tomatoes Rating: " + res.data.Ratings[1].value);
                         fs.appendFileSync("log.txt", "\rRotten Tomatoes Rating: " + res.data.Ratings[1].value);
                         console.log("Contry Movie produced: " + res.data.Country);
                         fs.appendFileSync("log.txt", "\rContry Movie produced: " + res.data.Country);
                         console.log("Movie Language: " + res.data.Languaje);
-                        fs.appendFileSync("log.txt","\rMovie Language: " + res.data.Languaje);
+                        fs.appendFileSync("log.txt", "\rMovie Language: " + res.data.Languaje);
                         console.log("Movie Plot: " + res.data.Plot);
-                        fs.appendFileSync("log.txt","\rMovie Plot: " + res.data.Plot);
+                        fs.appendFileSync("log.txt", "\rMovie Plot: " + res.data.Plot);
                         console.log("Actors:" + res.data.Actors);
-                        fs.appendFileSync("log.txt","Actors:" + res.data.Actors);
+                        fs.appendFileSync("log.txt", "Actors:" + res.data.Actors);
                         console.log("==========================================");
-                        fs.appendFileSync("log.txt","\r==========================================\n");
+                        fs.appendFileSync("log.txt", "\r==========================================\n");
                     }
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                      console.log(error.response.data);
+                      console.log(error.response.status);
+                      console.log(error.response.headers);
+                    } else if (error.request) {
+                      console.log(error.request);
+                    } else {
+                      console.log("Error", error.message);
+                      console.log("There is no more data to display, try another search or check your spelling");
+                    }
+                    console.log(error.config);
+                                        
+                    
                 });
         });
 }
 
 
 function randomFn() {
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        if (error) {
+            return console.log(error);
+        }
+        
+        console.log("Instruction from file is: " + data + " search\n");
+        switch (data) {
+            case "concert":
+                concerts();
+                break;
 
-    console.log("randmom");
+            case "spotify":
+                spotifyThis();
+                break;
+
+            case "movie":
+                omdb();
+                break;
+
+            default:
+                console.log("Unrecognized command\nThe supported options are:\nconcert\npotify\nmovie");
+                break;
+        }
+    });
 }
+
 // function titleCase(str) {
 //     str = str.toLowerCase().split(' ');
 //     for (var i = 0; i < str.length; i++) {
