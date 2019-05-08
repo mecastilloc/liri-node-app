@@ -20,9 +20,9 @@ To retrieve the data that will power this app, It will need to send requests usi
 
    * [inquirer](https://www.npmjs.com/package/inquirer)
 
-### Settings
+## Settings
 
-1. install all the dependencies needed with *$npm install*  Note tha the file package.json already has what you need
+1. install all the dependencies needed with **`$npm install`**  Note tha the file package.json already has what you need
 
 2. Yo need to create your API keys from:
 
@@ -51,12 +51,11 @@ To retrieve the data that will power this app, It will need to send requests usi
       OMDB_KEY=YOURS
 ```
 
-##Use Cases
+## Use Cases
 
 When the app runs it display four different options, user can select one by using UP/DOWN arrow keys.
 
-
-###Case 1 Concerts-this
+### Case 1 Concerts-this
 
 * This will search the Bands in Town Artist Events API via `AXIOS` node package for an artist and render the following information about each event to the terminal:
 
@@ -72,8 +71,7 @@ When the app runs it display four different options, user can select one by usin
 
   *Remember to get you personal key
 
-
-###Case 2 Spotify-this
+### Case 2 Spotify-this
 
 * It utilizes the `node-spotify-api` package in order to retrieve song information from the Spotify API.
 
@@ -97,8 +95,7 @@ When the app runs it display four different options, user can select one by usin
 
   *Remember to get you personal key
 
-
-##Case 3 Movie-this
+### Case 3 Movie-this
 
 * This will search  with `AXIOS` node package, from The Open Movie Database API, the following information to your terminal/bash window:
 
@@ -120,7 +117,7 @@ When the app runs it display four different options, user can select one by usin
  *Remember to get you personal key
 
 
-## Case 4 Do-what-it-says
+### Case 4 Do-what-it-says
 
 * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 
@@ -137,7 +134,7 @@ When the app runs it display four different options, user can select one by usin
 
 
 
-##Commits
+## Commits
 
 Commit 1:
 Initial Commit
@@ -185,3 +182,6 @@ readme.md file update
 
 Commit 15:
 readme.file update with video link and spell check.
+
+Commit 16:
+Code Format.

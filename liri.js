@@ -268,10 +268,7 @@ function randomFn() {
                 console.log("Searching the next  4 events for " + search + "...");
                 axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=" + bandsKey)
                     .then(function (res) {
-                        //console.log("https://rest.bandsintown.com/artists/" + search + "/events?app_id="+ bandsKey)
-                        //console.log(JSON.stringify(response, null, 2));
                         fs.appendFileSync("log.txt", "\n\n" + moment().format("YYYY-MM-DD") + " " + moment().format("HH:mm:ss") + "\r" + "concerts-this query for " + search + " Events");
-
                         if (res.data == "") {
                             fs.appendFileSync("log.txt", "\r==========================================");
                             console.log("\nNo events data found for " + search + " Available. Check another artist");
@@ -324,9 +321,6 @@ function randomFn() {
                         console.log("\nThe data for " + search + " song is:");
                         for (var i = 0; i < res.tracks.items.length; i++) {
                             var items = res.tracks.items[i]
-                            // console.log(JSON.stringify(res, null, 2));
-                            // console.log(res.tracks.items[0]);
-                            //    console.log(res.tracks.items.length);
                             console.log("==========================================");
                             fs.appendFileSync("log.txt", "\r==========================================");
                             console.log("Artist: " + items.artists[0].name);
@@ -378,7 +372,6 @@ function randomFn() {
                 axios.get("http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey=" + omdbKey)
                     .then(function (res) {
                         fs.appendFileSync("log.txt", "\n\n" + moment().format("YYYY-MM-DD") + " " + moment().format("HH:mm:ss") + "\r" + "movie-this query for " + search + " movie");
-
                         if (res.data.Error == "Movie not found!") {
                             fs.appendFileSync("log.txt", "\r==========================================");
                             console.log("\nNo data for " + search + " Available. Check another movie");
@@ -386,10 +379,6 @@ function randomFn() {
                             fs.appendFileSync("log.txt", "\r==========================================");
                         }
                         else {
-                            // console.log("http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey="+omdbKey)
-                            //console.log(JSON.stringify(response, null, 2));
-                            //console.log(res);
-
                             console.log("\nThe data for the movie " + search + " is:");
                             console.log("==========================================");
                             fs.appendFileSync("log.txt", "\r==========================================");
@@ -425,8 +414,6 @@ function randomFn() {
                             console.log("There is no more data to display, try another search or check your spelling");
                         }
                         console.log(error.config);
-
-
                     })
                 break;
 
