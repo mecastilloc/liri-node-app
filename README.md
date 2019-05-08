@@ -22,7 +22,7 @@ To retrieve the data that will power this app, It will need to send requests usi
 
 ## Settings
 
-1. install all the dependencies needed with **`$npm install`**  Note tha the file package.json already has what you need
+1. install all the dependencies needed with **`$npm install`**  Note that the file package.json already has what you need
 
 2. Yo need to create your API keys from:
 
